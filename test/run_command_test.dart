@@ -1,5 +1,5 @@
+import 'package:fox_sdk/src/command_runner.dart';
 import 'package:test/test.dart';
-import 'package:vedla_cli/src/command_runner.dart';
 
 void main() {
   group('VedlaCliCommandRunner', () {

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:vedla_cli/src/command_runner.dart';
+import 'package:fox_sdk/src/command_runner.dart';
 
 Future<void> main(List<String> args) async {
   await _flushThenExit(await VedlaCliCommandRunner().run(args));

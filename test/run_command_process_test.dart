@@ -1,20 +1,18 @@
 import 'dart:io';
 
+import 'package:fox_sdk/src/command_runner.dart';
+import 'package:fox_sdk/src/commands/run_command.dart';
 import 'package:test/test.dart';
-import 'package:vedla_cli/src/command_runner.dart';
-import 'package:vedla_cli/src/commands/run_command.dart';
-import 'package:vedla_cli/src/utils/process_runner.dart';
 
-class FakeProcessRunner implements ProcessRunner {
+class FakeProcessRunner {
+  FakeProcessRunner({this.exitCodeToReturn = 0});
+
   late String executable;
   late List<String> args;
   String? workingDirectory;
   ProcessStartMode? mode;
   final int exitCodeToReturn;
 
-  FakeProcessRunner({this.exitCodeToReturn = 0});
-
-  @override
   Future<int> run(
     String exe,
     List<String> a, {
@@ -32,18 +30,16 @@ class FakeProcessRunner implements ProcessRunner {
 void main() {
   group('RunCommand integration (fake process)', () {
     test('constructs flutter args and uses working directory', () async {
-      final tmp = await Directory.systemTemp.createTemp('vedla_cli_test_');
+      final tmp = await Directory.systemTemp.createTemp('fox_sdk_test_');
       try {
         // Create a dummy pubspec and lib/main.dart so RunCommand finds them
-        final pubspec = File('${tmp.path}/pubspec.yaml');
-        pubspec.writeAsStringSync('name: test_app');
+        File('${tmp.path}/pubspec.yaml').writeAsStringSync('name: test_app');
 
         final libDir = Directory('${tmp.path}/lib')..createSync();
-        final mainFile = File('${libDir.path}/main.dart');
-        mainFile.writeAsStringSync('// main');
+        File('${libDir.path}/main.dart').writeAsStringSync('// main');
 
         final fake = FakeProcessRunner();
-        final runCmd = RunCommand(processRunner: fake);
+        final runCmd = RunCommand(processRunner: fake.run);
         final runner = VedlaCliCommandRunner(runCommand: runCmd);
 
         final exit = await runner.run([

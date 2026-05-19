@@ -4,29 +4,29 @@ library;
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
+import 'package:fox_sdk/src/commands/commands.dart';
+import 'package:fox_sdk/src/version.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:pub_updater/pub_updater.dart';
-import 'package:vedla_cli/src/commands/commands.dart';
-import 'package:vedla_cli/src/version.dart';
 
 /// The executable name for the CLI.
-const executableName = 'vedla_cli';
+const executableName = 'fox';
 
 /// The pub package name.
-const packageName = 'vedla_cli';
+const packageName = 'fox_sdk';
 
-/// The top-level description shown in `vedla_cli --help`.
-const description = 'Vedla CLI Tools for Flutter';
+/// The top-level description shown in `fox --help`.
+const description = 'Fox SDK for Flutter';
 
-/// {@template vedla_cli_command_runner}
+/// {@template fox_sdk_command_runner}
 /// A [CommandRunner] for the CLI.
 ///
 /// ```bash
-/// $ vedla_cli --version
+/// $ fox --version
 /// ```
 /// {@endtemplate}
 class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
-  /// {@macro vedla_cli_command_runner}
+  /// {@macro fox_sdk_command_runner}
   VedlaCliCommandRunner({
     Logger? logger,
     PubUpdater? pubUpdater,
@@ -50,7 +50,7 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
       );
 
     // Add sub commands (allow injection for tests)
-    addCommand(runCommand ?? RunCommand(processRunner: null));
+    addCommand(runCommand ?? RunCommand());
     addCommand(
       updateCommand ?? UpdateCommand(logger: _logger, pubUpdater: _pubUpdater),
     );

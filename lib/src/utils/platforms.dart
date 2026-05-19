@@ -2,7 +2,8 @@
 library;
 
 import 'package:flutter/foundation.dart';
-import 'package:vedla_cli/src/utils/flutter_platforms.dart';
+
+import 'package:fox_sdk/src/utils/flutter_platforms.dart';
 
 /// Resolves the current Flutter platform when running inside Flutter.
 final class PlatformResolver {

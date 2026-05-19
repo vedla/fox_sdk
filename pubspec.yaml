@@ -1,8 +1,8 @@
-name: vedla_cli
-description: Vedla CLI Tools for Flutter
-publish_to: none
-version: 0.0.1
+name: fox_sdk
+description: Fox SDK for Flutter
+version: 0.1.0-alpha.1
 homepage: https://gitlab.com/vedla/vedla-cli.git
+repository: https://gitlab.com/vedla/vedla-cli.git
 
 
 environment:
@@ -11,27 +11,27 @@ environment:
 dependencies:
   args: ^2.7.0
   cli_completion: ^0.5.1
+  flutter:
+    sdk: flutter
   mason_logger: ^0.3.5
   pub_updater: ^0.5.0
 
 dev_dependencies:
   build_runner: ^2.15.0
-  test: any
-  flutter:
-    sdk: flutter
   build_verify: ^3.1.1
   build_version: ^2.1.3
-  import_order_lint: ^0.2.3
-  melos: ^7.7.0
-
-  utopia_tui: ^2.0.0
-  very_good_analysis: ^10.2.0
   flutter_test:
     sdk: flutter
+  import_order_lint: ^0.2.3
+  melos: ^7.7.0
+  test: any
+  utopia_tui: ^2.0.0
+  very_good_analysis: ^10.2.0
 
 executables:
-  vedla_cli:
+  fox:
 
+workspace: []
 
 
 # workspace:
@@ -48,17 +48,3 @@ melos:
     upgrade: melos exec --flutter --concurrency=1 -- "flutter pub upgrade --major-versions"
     clean: melos exec --flutter --concurrency=1 -- "flutter clean"
     sort: melos exec --flutter --concurrency=1 -- "dart run import_order_lint:import_order"
-    preview:
-      description: "Start widget-preview for a specific app (e.g., melos run preview --scope=the_studio)"
-      exec: flutter widget-preview start
-      packageFilters:
-        flutter: true
-    xwidget:
-      description: "Regenerate XWidget inflaters for the runtime (game engine)"
-      run: dart run xwidget_builder:generate
-    xwidget:studio:
-      description: "Regenerate XWidget inflaters for the_studio editor UI"
-      run: dart run xwidget_builder:generate --config apps/the_studio/xwidget_config.yaml
-    schema:generate:
-      description: "Generate Studio JSON schemas from the schemas package"
-      run: dart run schemas:generate_op_schema -all packages/schemas/generated

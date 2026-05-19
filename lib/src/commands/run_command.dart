@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:vedla_cli/src/utils/flutter_platforms.dart';
-import 'package:vedla_cli/src/utils/process_runner.dart';
+
+import 'package:fox_sdk/src/utils/flutter_platforms.dart';
+import 'package:fox_sdk/src/utils/process_runner.dart';
 
 /// {@template run_command}
 /// A command which runs a Flutter app from either:
@@ -13,7 +14,7 @@ import 'package:vedla_cli/src/utils/process_runner.dart';
 class RunCommand extends Command<int> {
   /// {@macro run_command}
   RunCommand({ProcessRunner? processRunner})
-    : _processRunner = processRunner ?? const DefaultProcessRunner() {
+    : _processRunner = processRunner ?? defaultProcessRunner {
     argParser
       ..addOption('project', abbr: 'p')
       ..addOption('path')
@@ -99,7 +100,7 @@ class RunCommand extends Command<int> {
       ...targetArgs,
     ];
 
-    final exitCode = await _processRunner.run(
+    final exitCode = await _processRunner(
       'flutter',
       flutterArgs,
       workingDirectory: workingDirectory,

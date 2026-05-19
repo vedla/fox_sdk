@@ -1,4 +1,4 @@
-name: vedla_cli
+name: fox_sdk
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - ".github/workflows/vedla_cli.yaml"
+      - ".github/workflows/fox_sdk.yaml"
       - "lib/**"
       - "test/**"
       - "pubspec.yaml"
@@ -15,7 +15,7 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/vedla_cli.yaml"
+      - ".github/workflows/fox_sdk.yaml"
       - "lib/**"
       - "test/**"
       - "pubspec.yaml"
@@ -41,17 +41,17 @@ jobs:
   verify-version:
     runs-on: ubuntu-latest
     steps:
-      - name: 📚 Git Checkout
+      - name: Git Checkout
         uses: actions/checkout@v2
 
-      - name: 🎯 Setup Dart
+      - name: Setup Dart
         uses: dart-lang/setup-dart@v1.7.2
         with:
           sdk: "3.11.0"
 
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: |
           dart pub get
 
-      - name: 🔎 Verify version
+      - name: Verify version
         run: dart run test --run-skipped -t version-verify
