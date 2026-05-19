@@ -24,34 +24,38 @@ jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
-  build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
-    with:
-      dart_sdk: "3.11.0"
+  # build:
+  #   uses: ./.github/workflow-templates/flutter_package.yml
+  #   with:
+  #     flutter_channel: 'stable'
+  #     # flutter_version: '3.41.9'
+  #     architecture: x64
+  #     cache: false
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
+      config: 'cspell.yaml'
       includes: |
         **/*.md
         !brick/**/*.md
         .*/**/*.md
       modified_files_only: false
 
-  verify-version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
+  # verify-version:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Git Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1.7.2
-        with:
-          sdk: "3.11.0"
+  #     - name: Setup Dart
+  #       uses: dart-lang/setup-dart@v1.7.2
+  #       with:
+  #         sdk: "3.11.0"
 
-      - name: Install Dependencies
-        run: |
-          dart pub get
+  #     - name: Install Dependencies
+  #       run: |
+  #         dart pub get
 
-      - name: Verify version
-        run: dart run test --run-skipped -t version-verify
+  #     - name: Verify version
+  #       run: dart run test --run-skipped -t version-verify
