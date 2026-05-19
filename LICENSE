@@ -1,4 +1,4 @@
-# MIT License
+MIT License
 
 Copyright (c) 2026 Vedla Creative
 
@@ -19,29 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-## Exclusions
-
-The codebase and documentation in this repository are licensed under the MIT License.
-
-However, the Furlab Studio, The Studio, FoxUI for Flutter, Fox SDK, Vedla Creative names, logos, branding, and related visual identities are not included in the license grant unless explicitly stated otherwise.
-
-Third-party assets, dependencies, libraries, and tools remain subject to their respective licenses and terms. Use of this software does not grant ownership, redistribution, or relicensing rights to those assets unless explicitly stated otherwise.
-
-Forks and derivative projects are welcome, but please avoid using the official branding in a way that could cause confusion or imply endorsement.
-
-## Third-Party and Commissioned Assets
-
-This repository may reference or expect assets such as artwork, images, audio, fonts, or other media that are either:
-
-- commissioned specifically for this project, or
-- licensed through third-party providers.
-
-These assets are not included under the MIT License and may not be authorized for redistribution or reuse.
-
-If you are contributing to this project or running a local instance, you may need to obtain the appropriate assets independently and place them in the designated asset directories. Asset source information should be documented in `assets/licensed-assets.md`.
-
-### Tay License Terms
-
-If you use this software, you may be required to be nice to each other.
-Our lawyers insist this is not legally enforceable, but it's still the right thing to do.
