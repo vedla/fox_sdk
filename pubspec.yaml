@@ -1,13 +1,19 @@
 name: fox_sdk
-description: Fox SDK for Flutter
-version: 0.1.0-alpha.1
-homepage: https://gitlab.com/vedla/vedla-cli.git
-repository: https://gitlab.com/vedla/vedla-cli.git
+description: A Flutter SDK and CLI for running apps, resolving platforms, and managing updates.
+version: 0.1.0-alpha.2
+homepage: https://gitlab.com/vedla/fox_sdk.git
+repository: https://gitlab.com/vedla/fox_sdk.git
 
 
 environment:
   sdk: ^3.11.0
   flutter: ">=3.40.0"
+
+platforms:
+  linux:
+  macos:
+  windows:
+
 
 dependencies:
   args: ^2.7.0
