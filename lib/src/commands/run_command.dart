@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/command_runner.dart';
 
 import 'package:fox_sdk/src/utils/flutter_platforms.dart';
+// import 'package:fox_sdk/src/utils/platforms.dart';
 import 'package:fox_sdk/src/utils/process_runner.dart';
 
 /// {@template run_command}
@@ -70,7 +71,7 @@ class RunCommand extends Command<int> {
 
   @override
   Future<int> run() async {
-    final platform = _platform ?? FlutterPlatforms.desktop;
+    final platform = _platform ?? FlutterPlatforms.macos;
 
     final resolvedDevice = _resolveDevice(platform);
 
@@ -112,7 +113,8 @@ class RunCommand extends Command<int> {
 
   /// Resolves Flutter device identifier.
   String _resolveDevice(FlutterPlatforms platform) {
-    if (platform == FlutterPlatforms.desktop) {
+    if (platform != FlutterPlatforms.ios &&
+        platform != FlutterPlatforms.android) {
       return switch (Platform.operatingSystem) {
         'macos' => FlutterPlatforms.macos.name,
         'windows' => FlutterPlatforms.windows.name,

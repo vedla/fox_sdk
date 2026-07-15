@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  ffi_leak_tracker:
+    dependency: transitive
+    description:
+      name: ffi_leak_tracker
+      sha256: "4093d4ef9ca06ffe2786e73bfb25e22aa92112b9bb4ec941f11e3e6b61489a97"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   file:
     dependency: transitive
     description:
@@ -102,11 +110,10 @@ packages:
   fox_sdk:
     dependency: "direct main"
     description:
-      name: fox_sdk
-      sha256: c3585ace76e92eadfc384f9424c4615c23363851c90c8bc0514b54ad17cda979
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0-alpha.1"
+      path: ".."
+      relative: true
+    source: path
+    version: "0.1.0"
   http:
     dependency: transitive
     description:
@@ -167,10 +174,10 @@ packages:
     dependency: transitive
     description:
       name: mason_logger
-      sha256: "1d46102c6f299c0df7fe986dd3dd3271d57c2ec7c00ae590660b7c3018810048"
+      sha256: "4f053e4e7e1716002b72cad133d81612be3550d40ed9d43c1878c9b03ba93069"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5"
+    version: "0.3.4"
   matcher:
     dependency: transitive
     description:
@@ -191,10 +198,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.18.0"
   path:
     dependency: transitive
     description:
@@ -284,10 +291,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "8161c84903fd860b26bfdefb7963b3f0b68fee7adea0f59ef805ecca346f0c7a"
+      sha256: "949a932224383300f01be9221c39180316445ecb8e7547f70a41a35bf421fb9e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.10"
+    version: "0.7.11"
   typed_data:
     dependency: transitive
     description:
@@ -324,10 +331,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: d7cb55e04cd34096cd3a79b3330245f54cb96a370a1c27adb3c84b917de8b08e
+      sha256: ba6f4bba816c8d7e3c1580e170f3786d216951cc6b94babc3b814c08d2cb2738
       url: "https://pub.dev"
     source: hosted
-    version: "5.15.0"
+    version: "6.3.0"
 sdks:
   dart: ">=3.11.0 <4.0.0"
   flutter: ">=3.40.0"

@@ -5,8 +5,8 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
 import 'package:fox_sdk/src/commands/commands.dart';
+import 'package:fox_sdk/src/utils/app_logger.dart';
 import 'package:fox_sdk/src/version.dart';
-import 'package:mason_logger/mason_logger.dart';
 import 'package:pub_updater/pub_updater.dart';
 
 /// The executable name for the CLI.
@@ -18,6 +18,10 @@ const packageName = 'fox_sdk';
 /// The top-level description shown in `fox --help`.
 const description = 'Fox SDK for Flutter';
 
+const int exitCodeSuccess = 0;
+const int exitCodeUsage = 64;
+const int exitCodeSoftware = 70;
+
 /// {@template fox_sdk_command_runner}
 /// A [CommandRunner] for the CLI.
 ///
@@ -28,12 +32,12 @@ const description = 'Fox SDK for Flutter';
 class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
   /// {@macro fox_sdk_command_runner}
   VedlaCliCommandRunner({
-    Logger? logger,
+    AppLogger? logger,
     PubUpdater? pubUpdater,
     // Allow injecting command instances for testing
     Command<int>? runCommand,
     Command<int>? updateCommand,
-  }) : _logger = logger ?? Logger(),
+  }) : _logger = logger ?? foxLogger,
        _pubUpdater = pubUpdater ?? PubUpdater(),
        super(executableName, description) {
     // Add root options and flags
@@ -59,7 +63,7 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
   @override
   void printUsage() => _logger.info(usage);
 
-  final Logger _logger;
+  final AppLogger _logger;
   final PubUpdater _pubUpdater;
 
   @override
@@ -67,26 +71,26 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
     try {
       final topLevelResults = parse(args);
       if (topLevelResults['verbose'] == true) {
-        _logger.level = Level.verbose;
+        _logger.level = LogLevel.verbose;
       }
-      return await runCommand(topLevelResults) ?? ExitCode.success.code;
+      return await runCommand(topLevelResults) ?? exitCodeSuccess;
     } on FormatException catch (e, stackTrace) {
       // On format errors, show the commands error message, root usage and
       // exit with an error code
       _logger
-        ..err(e.message)
-        ..err('$stackTrace')
+        ..error(e.message)
+        ..error('$stackTrace')
         ..info('')
         ..info(usage);
-      return ExitCode.usage.code;
+      return exitCodeUsage;
     } on UsageException catch (e) {
       // On usage errors, show the commands usage message and
       // exit with an error code
       _logger
-        ..err(e.message)
+        ..error(e.message)
         ..info('')
         ..info(e.usage);
-      return ExitCode.usage.code;
+      return exitCodeUsage;
     }
   }
 
@@ -95,7 +99,7 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
     // Fast track completion command
     if (topLevelResults.command?.name == 'completion') {
       await super.runCommand(topLevelResults);
-      return ExitCode.success.code;
+      return exitCodeSuccess;
     }
 
     // Verbose logs
@@ -123,7 +127,7 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
     final int? exitCode;
     if (topLevelResults['version'] == true) {
       _logger.info(packageVersion);
-      exitCode = ExitCode.success.code;
+      exitCode = exitCodeSuccess;
     } else {
       exitCode = await super.runCommand(topLevelResults);
     }
@@ -146,12 +150,13 @@ class VedlaCliCommandRunner extends CompletionCommandRunner<int> {
       if (!isUpToDate) {
         _logger
           ..info('')
-          ..info('''
-${lightYellow.wrap('Update available!')} ${lightCyan.wrap(packageVersion)} \u2192 ${lightCyan.wrap(latestVersion)}
-Run ${lightCyan.wrap('$executableName update')} to update''');
+          ..info(
+            'Update available! $packageVersion -> $latestVersion\n'
+            'Run $executableName update to update',
+          );
       }
     } on Exception catch (_) {
-      _logger.err('Failed to check for updates.');
+      _logger.error('Failed to check for updates.');
     }
   }
 }

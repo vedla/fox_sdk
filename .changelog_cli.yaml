@@ -19,7 +19,7 @@ changelog:
 
   # Output settings
   printer: markdown  # Output format: simple, markdown, slack-markdown
-  version: "0.1.0-alpha.2"      # Version to display in changelog header
+  version: "0.1.0"      # Version to display in changelog header
   limit: 0         # Max length of changelog (0 = no limit)
 
   # Grouping and formatting
