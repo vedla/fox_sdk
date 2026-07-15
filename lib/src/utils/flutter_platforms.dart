@@ -3,11 +3,11 @@ library;
 
 /// Flutter platforms understood by the CLI.
 enum FlutterPlatforms {
-  /// The web platform.
-  web,
+  /// Android mobile.
+  android,
 
-  /// Apple desktop.
-  macos,
+  /// iOS mobile.
+  ios,
 
   /// Windows desktop.
   windows,
@@ -15,15 +15,9 @@ enum FlutterPlatforms {
   /// Linux desktop.
   linux,
 
-  /// Android mobile.
-  android,
+  /// Apple desktop.
+  macos,
 
-  /// iOS mobile.
-  ios,
-
-  /// Fuchsia.
-  fuchsia,
-
-  /// A desktop platform resolved from the host OS.
-  desktop,
+  /// The web platform.
+  web,
 }

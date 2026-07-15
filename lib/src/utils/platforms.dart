@@ -1,7 +1,7 @@
 /// Platform detection and resolution utilities for Flutter apps.
 library;
 
-import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 import 'package:fox_sdk/src/utils/flutter_platforms.dart';
 
@@ -12,29 +12,32 @@ final class PlatformResolver {
 
   /// The current platform.
   static FlutterPlatforms get current {
-    if (kIsWeb) {
-      return FlutterPlatforms.web;
-    }
-
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
+    switch (Platform.operatingSystem) {
+      case 'android':
         return FlutterPlatforms.android;
 
-      case TargetPlatform.iOS:
+      case 'ios':
         return FlutterPlatforms.ios;
 
-      case TargetPlatform.macOS:
+      case 'macos':
         return FlutterPlatforms.macos;
 
-      case TargetPlatform.windows:
+      case 'windows':
         return FlutterPlatforms.windows;
 
-      case TargetPlatform.linux:
+      case 'linux':
         return FlutterPlatforms.linux;
 
-      case TargetPlatform.fuchsia:
-        return FlutterPlatforms.fuchsia;
+      case 'web':
+        return FlutterPlatforms.web;
+
+      default:
+        return FlutterPlatforms.macos;
     }
+  }
+
+  FlutterPlatforms checkIfWeb(FlutterPlatforms platform) {
+    return current == FlutterPlatforms.web ? FlutterPlatforms.web : platform;
   }
 
   /// Whether the current platform is web.
@@ -54,9 +57,6 @@ final class PlatformResolver {
 
   /// Whether the current platform is Linux.
   static bool get isLinux => current == FlutterPlatforms.linux;
-
-  /// Whether the current platform is Fuchsia.
-  static bool get isFuchsia => current == FlutterPlatforms.fuchsia;
 
   /// Whether the current platform is Android or iOS.
   static bool get isMobile => isAndroid || isIOS;

@@ -14,7 +14,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fox_sdk: ^0.1.0-alpha.2
+  fox_sdk:
+    path: ..
 
 dev_dependencies:
   flutter_test:

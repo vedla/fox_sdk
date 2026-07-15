@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:fox_sdk/src/command_runner.dart';
+import 'package:fox_sdk/src/utils/app_logger.dart';
 import 'package:fox_sdk/src/version.dart';
-import 'package:mason_logger/mason_logger.dart';
 import 'package:pub_updater/pub_updater.dart';
 
 /// {@template update_command}
@@ -11,11 +11,11 @@ import 'package:pub_updater/pub_updater.dart';
 /// {@endtemplate}
 class UpdateCommand extends Command<int> {
   /// {@macro update_command}
-  UpdateCommand({required Logger logger, PubUpdater? pubUpdater})
+  UpdateCommand({required AppLogger logger, PubUpdater? pubUpdater})
     : _logger = logger,
       _pubUpdater = pubUpdater ?? PubUpdater();
 
-  final Logger _logger;
+  final AppLogger _logger;
   final PubUpdater _pubUpdater;
 
   @override
@@ -35,15 +35,15 @@ class UpdateCommand extends Command<int> {
       latestVersion = await _pubUpdater.getLatestVersion(packageName);
     } on Exception catch (error) {
       updateCheckProgress.fail();
-      _logger.err('$error');
-      return ExitCode.software.code;
+      _logger.error('$error');
+      return exitCodeSoftware;
     }
     updateCheckProgress.complete('Checked for updates');
 
     final isUpToDate = packageVersion == latestVersion;
     if (isUpToDate) {
       _logger.info('CLI is already at the latest version.');
-      return ExitCode.success.code;
+      return exitCodeSuccess;
     }
 
     final updateProgress = _logger.progress('Updating to $latestVersion');
@@ -56,18 +56,18 @@ class UpdateCommand extends Command<int> {
       );
     } on Exception catch (error) {
       updateProgress.fail();
-      _logger.err('$error');
-      return ExitCode.software.code;
+      _logger.error('$error');
+      return exitCodeSoftware;
     }
 
-    if (result.exitCode != ExitCode.success.code) {
+    if (result.exitCode != exitCodeSuccess) {
       updateProgress.fail();
-      _logger.err('Error updating CLI: ${result.stderr}');
-      return ExitCode.software.code;
+      _logger.error('Error updating CLI: ${result.stderr}');
+      return exitCodeSoftware;
     }
 
     updateProgress.complete('Updated to $latestVersion');
 
-    return ExitCode.success.code;
+    return exitCodeSuccess;
   }
 }
